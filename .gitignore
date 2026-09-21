@@ -18,3 +18,9 @@ htmlcov/
 
 # Local SQLite database
 *.db
+
+# Frontend dependencies
+frontend/node_modules/
+
+# Frontend build output
+frontend/dist/
