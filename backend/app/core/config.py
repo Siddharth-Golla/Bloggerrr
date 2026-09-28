@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     debug: bool = True
     database_url: str = "sqlite:///./bloggerrr.db"
 
-    secret_key: str = "development-secret-change-later"
+    secret_key: str = "development-secret-change-later-123"
     access_token_expire_minutes: int = 30
 
     model_config = SettingsConfigDict(

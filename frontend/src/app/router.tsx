@@ -6,6 +6,8 @@ import ProfilePage from "../pages/ProfilePage";
 import PostsPage from "../pages/PostsPage";
 import RoomsPage from "../pages/RoomsPage";
 import AdminPage from "../pages/AdminPage";
+import RegisterPage from "../pages/RegisterPage";
+import LoginPage from "../pages/LoginPage";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
       },
       {
         path: "profile",
