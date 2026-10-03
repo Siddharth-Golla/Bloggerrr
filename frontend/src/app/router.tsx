@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import RequireAuth from "../auth/RequireAuth";
 import AppLayout from "../layouts/AppLayout";
 import DashboardPage from "../pages/DashboardPage";
 import ProfilePage from "../pages/ProfilePage";
@@ -15,33 +16,17 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        index: true,
-        element: <DashboardPage />,
+        element: <RequireAuth />,
+        children: [
+          { index: true, element: <DashboardPage /> },
+          { path: "profile", element: <ProfilePage /> },
+          { path: "posts", element: <PostsPage /> },
+          { path: "rooms", element: <RoomsPage /> },
+          { path: "admin", element: <AdminPage /> },
+        ],
       },
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: "register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "posts",
-        element: <PostsPage />,
-      },
-      {
-        path: "rooms",
-        element: <RoomsPage />,
-      },
-      {
-        path: "admin",
-        element: <AdminPage />,
-      },
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
     ],
   },
 ]);

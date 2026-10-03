@@ -11,10 +11,8 @@ type User = {
 type AuthContextValue = {
   user: User | null;
   isLoading: boolean;
-  login: (
-    email: string,
-    password: string,
-  ) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -23,24 +21,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  async function login(
-    email: string,
-    password: string,
-    ) {
+  async function login(email: string, password: string) {
     const data = await loginUser({
-        email,
-        password,
+      email,
+      password,
     });
 
-  localStorage.setItem(
-    "access_token",
-    data.access_token,
-  );
+    localStorage.setItem("access_token", data.access_token);
 
-  const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
 
-  setUser(currentUser);
-}
+    setUser(currentUser);
+  }
+
+  function logout() {
+    localStorage.removeItem("access_token");
+    setUser(null);
+  }
 
   useEffect(() => {
     async function loadCurrentUser() {
@@ -66,13 +63,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loadCurrentUser();
   }, []);
 
-
   return (
     <AuthContext.Provider
       value={{
         user,
         isLoading,
         login,
+        logout,
       }}
     >
       {children}
