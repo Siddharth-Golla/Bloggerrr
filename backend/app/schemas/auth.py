@@ -36,6 +36,8 @@ class UserResponse(BaseModel):
     username: str
     email: str
     is_active: bool
+    is_verified: bool
+    role_id: int
 
     model_config = {
         "from_attributes": True,

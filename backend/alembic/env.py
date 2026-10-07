@@ -9,6 +9,7 @@ from app.core.config import settings
 from app.db.base import Base
 
 from app.models import User
+from app.models.role import Role
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

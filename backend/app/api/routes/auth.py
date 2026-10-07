@@ -2,14 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.schemas.auth import UserRegister, UserResponse
-from app.services.auth import register_user
-from app.schemas.auth import (
-    TokenResponse,
-    UserLogin,
-    UserRegister,
-    UserResponse,
-)
+from app.schemas.auth import TokenResponse,UserLogin,UserRegister,UserResponse
 from app.services.auth import login_user, register_user
 
 router = APIRouter(
@@ -17,7 +10,7 @@ router = APIRouter(
     tags=["Authentication"],
 )
 
-from app.api.dependencies import get_current_user
+from app.api.dependencies import get_admin_user, get_current_user
 from app.models.user import User
 
 

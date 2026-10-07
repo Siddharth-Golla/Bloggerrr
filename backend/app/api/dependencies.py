@@ -48,3 +48,50 @@ def get_current_user(
         raise credentials_exception
 
     return user
+
+
+def get_verified_user(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    if not current_user.is_verified:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Email verification required",
+        )
+
+    return current_user
+
+def get_member_user(
+    current_user: User = Depends(get_verified_user),
+) -> User:
+    if current_user.role.name != "Member":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Member access required",
+        )
+
+    return current_user
+
+
+def get_moderator_user(
+    current_user: User = Depends(get_verified_user),
+) -> User:
+    if current_user.role.name != "Moderator":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Moderator access required",
+        )
+
+    return current_user
+
+
+def get_admin_user(
+    current_user: User = Depends(get_verified_user),
+) -> User:
+    if current_user.role.name != "Administrator":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Administrator access required",
+        )
+
+    return current_user
