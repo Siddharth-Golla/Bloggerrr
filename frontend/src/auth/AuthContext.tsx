@@ -5,7 +5,9 @@ type User = {
   id: number;
   username: string;
   email: string;
+  role_id: number;
   is_active: boolean;
+  is_verified: boolean;
 };
 
 type AuthContextValue = {
